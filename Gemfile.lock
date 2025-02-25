@@ -105,6 +105,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  dry-monads
   dry-transaction
   dry-validation
   pry

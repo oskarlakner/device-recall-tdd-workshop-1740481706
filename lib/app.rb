@@ -3,7 +3,7 @@
 module DeviceRecallWorkshop
   class App
     def self.run
-      'App is running'
+      puts 'App is running'
     end
   end
 end
