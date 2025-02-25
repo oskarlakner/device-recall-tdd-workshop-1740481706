@@ -34,7 +34,7 @@ The goal of this project is to guide you through creating a production-ready Rub
    ruby generate_large_csv.rb
    ```
 
-   This will produce a file named `devices.csv` with 500,000 rows of sample device data.
+   This will produce a file named `devices.csv` with 1,000,000 rows of sample device data.
 
 ## Best Practices
 
