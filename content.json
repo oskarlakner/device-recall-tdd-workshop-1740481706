@@ -1,0 +1,159 @@
+{
+  "project": {
+    "title": "Device Recall TDD Workshop",
+    "description": "In this hands-on project, you will build a Ruby application that reads large CSV files, applies recall rules, handles various sales statuses, and generates final reports. The journey will guide you through test-driven development, modular Service Objects, and core dry-rb features—without giving away every secret. You`ll learn by doing and see exactly how TDD streamlines complex business logic.",
+    "sprints": [
+      {
+        "title": "Tasks",
+        "tasks": [
+          {
+            "title": "CSV Data Loading & Preliminary Validation",
+            "user_story": "Set up RSpec, create a Service Object to read and validate CSV data, then separate valid records from invalid ones. You must deal with large file handling, ensuring incomplete rows are flagged and correct ones continue through the flow.",
+            "acceptance_criteria": [
+              "Project is initialized with RSpec and a `sanity check` test is in place",
+              "A Service Object loads the CSV file and returns an iterable collection of rows",
+              "A dry-validation schema (e.g., CsvRecordSchema) rejects rows missing required fields (serial_number, model, firmware_version, manufactured_date, sale_status)",
+              "A clear structure holds both valid and invalid entries for future processing"
+            ],
+            "learning_materials": [
+              {
+                "url": "http://www.betterspecs.org/"
+              },
+              {
+                "url": "https://dry-rb.org/gems/dry-validation/"
+              },
+              {
+                "url": "https://ruby-doc.org/stdlib-2.7.0/libdoc/csv/rdoc/CSV.html"
+              }
+            ],
+            "hints": [
+              {
+                "title": "Large File Strategy",
+                "content": "Consider using an enumerator or chunk processing to manage big CSV files without memory issues."
+              },
+              {
+                "title": "Separate Concerns",
+                "content": "Keep validation in a dedicated dry-validation schema rather than mixing it into models."
+              },
+              {
+                "title": "Store Errors",
+                "content": "Plan where to store invalid records—memory, temp files, or a database—to finalize the flow."
+              }
+            ]
+          },
+          {
+            "title": "Recall Qualification & TDD",
+            "user_story": "Determine recall status for each device based on model, firmware, and manufactured date. Integrate a TDD approach to cover multiple scenarios, and ensure your solution can grow as new rules emerge.",
+            "acceptance_criteria": [
+              "Conditional tests verify `Recall Immediately`, `Firmware Update Required`, or `No Action Needed`",
+              "A Service Object (e.g., DetermineRecallService) checks device model, firmware version, and manufacturing date",
+              "Integration with previously validated CSV data ensures no incomplete rows disrupt recall logic",
+              "A preliminary summary shows how many devices fall into each recall category"
+            ],
+            "learning_materials": [
+              {
+                "url": "https://dry-rb.org/gems/dry-transaction/"
+              },
+              {
+                "url": "https://relishapp.com/rspec/rspec-core/v/3-10/docs/example-groups/shared-examples"
+              }
+            ],
+            "hints": [
+              {
+                "title": "Complex Business Rules",
+                "content": "Use TDD with parametric tests to cover all device model and version combinations."
+              },
+              {
+                "title": "Expandability",
+                "content": "Keep recall criteria in a YAML or separate configuration so it`s easy to add more models later."
+              },
+              {
+                "title": "dry-transaction",
+                "content": "Break down your steps—validation, recall qualification, error handling—into logical units."
+              },
+              {
+                "title": "Refactor Iteratively",
+                "content": "Don`t be afraid to adjust design as you discover better ways to structure the logic."
+              }
+            ]
+          },
+          {
+            "title": "Handling sale_status & Extra Actions",
+            "user_story": "Depending on whether a device is sold, in_stock, or returned, implement different follow-up actions (such as sending notifications, blocking stock, or marking damaged items). Tests should confirm the correct responses for each sale_status case.",
+            "acceptance_criteria": [
+              "`sold` devices trigger notifications when recall is required",
+              "`in_stock` devices get blocked from sale if marked faulty",
+              "`returned` devices are identified as recalled/damaged if relevant",
+              "Integration tests confirm that sale_status logic works seamlessly with recall decisions"
+            ],
+            "learning_materials": [
+              {
+                "url": "https://github.com/aasm/aasm"
+              },
+              {
+                "url": "https://dry-rb.org/gems/dry-transaction/advanced/"
+              }
+            ],
+            "hints": [
+              {
+                "title": "Dedicated Service Objects",
+                "content": "Consider a HandleSaleStatusService to keep sale_status transitions distinct."
+              },
+              {
+                "title": "Mocked Notifications",
+                "content": "Use RSpec doubles or stubs to verify notifications without relying on external email services."
+              },
+              {
+                "title": "State Machine Options",
+                "content": "Evaluate if a simple switch-case suffices or if a gem like aasm might make sense."
+              },
+              {
+                "title": "Combine Flows Carefully",
+                "content": "Decide if these actions belong in the same dry-transaction or as a subsequent step."
+              }
+            ]
+          },
+          {
+            "title": "Reports, Error Handling & Batch Processing",
+            "user_story": "Generate a final report, update recall statuses in storage, and manage partial failures in large batch processing. Ensure a clear threshold for when errors should halt the process and that successful chunks still complete.",
+            "acceptance_criteria": [
+              "A final report counts how many devices are recalled, need firmware updates, or require no action",
+              "Devices are updated in the database with their final recall status (e.g., recalled, update_needed, no_action)",
+              "Processing continues despite errors in a given batch, but stops if error rates exceed the defined threshold (e.g., 5%)",
+              "An end-to-end flow test ensures CSV input to final DB update runs smoothly"
+            ],
+            "learning_materials": [
+              {
+                "url": "https://dry-rb.org/gems/dry-transaction/error-handling/"
+              },
+              {
+                "url": "https://sidekiq.org/"
+              },
+              {
+                "url": "https://guides.rubyonrails.org/active_record_callbacks.html#transaction-callbacks"
+              }
+            ],
+            "hints": [
+              {
+                "title": "Batch Strategy",
+                "content": "Process large CSV files in manageable chunks (e.g., 10k records) to reduce rollback risk."
+              },
+              {
+                "title": "Error Threshold",
+                "content": "Implement a mechanism to abort processing if too many records fail validation."
+              },
+              {
+                "title": "Transaction Flow",
+                "content": "Use dry-transaction or standard transactions to handle partial successes without losing all progress."
+              },
+              {
+                "title": "Final Stats",
+                "content": "Gather result data (recall_immediately, firmware_update, no_action) for a clear summary."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
