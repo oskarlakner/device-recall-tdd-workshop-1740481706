@@ -8,12 +8,10 @@
         "tasks": [
           {
             "title": "CSV Data Loading & Preliminary Validation",
-            "user_story": "Set up RSpec, create a Service Object to read and validate CSV data, then separate valid records from invalid ones. You must deal with large file handling, ensuring incomplete rows are flagged and correct ones continue through the flow.",
+            "user_story": "Create a Service Object to read and validate CSV data, then separate valid records from invalid ones. You must deal with large file handling, ensuring incomplete rows are flagged and correct ones continue through the flow.",
             "acceptance_criteria": [
-              "Project is initialized with RSpec and a `sanity check` test is in place",
               "A Service Object loads the CSV file and returns an iterable collection of rows",
-              "A dry-validation schema (e.g., CsvRecordSchema) rejects rows missing required fields (serial_number, model, firmware_version, manufactured_date, sale_status)",
-              "A clear structure holds both valid and invalid entries for future processing"
+              "A dry-validation schema (e.g., CsvRecordSchema) rejects rows missing required fields (serial_number, model, firmware_version, manufactured_date, sale_status)"
             ],
             "learning_materials": [
               {
