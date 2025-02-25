@@ -2,10 +2,6 @@
 
 This repository contains the code for the **Device Recall TDD Workshop**. In this hands-on project, you'll build a Ruby application that reads large CSV files, applies recall rules based on device data, handles various sale statuses, and generates final reports. You'll learn Test-Driven Development (TDD), build modular Service Objects, and harness the power of dry‑rb libraries for robust business logic.
 
-## Demo
-
-_This project is designed for workshop exercises. A live demo is not available, but you can run the application locally by following the instructions below._
-
 ## About
 
 The goal of this project is to guide you through creating a production-ready Ruby application using best practices and advanced patterns. Core features include:
