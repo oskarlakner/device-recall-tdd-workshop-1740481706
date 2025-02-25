@@ -23,7 +23,7 @@ The goal of this project is to guide you through creating a production-ready Rub
 3. **Run tests to ensure everything is set up correctly:**
 
    ```bash
-   rspec
+   rspec .
    ```
 
 4. **Generate the CSV File:**
